@@ -1,0 +1,112 @@
+<!-- Black Pants Disruptor -->
+<script type="text/javascript">
+// <![CDATA[ 
+
+var PromoDisruption = Class.create();
+
+    PromoDisruption.prototype = {
+    
+    initialize:function() {
+        $('mainContent').setStyle ({position:'relative'});
+        Effect.Fade('universalTopNav',{ duration: 1.0, from: 1, to: .3 });
+        Effect.Fade('homeVariant10000461_region1',{ duration: 1.0, from: 1, to: .3 });
+        Effect.Fade('footer',{ duration: 1.0, from: 1, to: .3 });
+        Effect.Fade('contentItemContainer10000512',{ duration: 1.0, from: 1, to: .3 });
+        Effect.Fade('Main1968226',{ duration: 1.0, from: 1, to: .3 });
+               
+        gidLib.setCookieVar("mktUniversalSession","disruptorCookie","1");
+
+        
+        $('CloseButton').onclick = function() {
+        
+        Effect.SlideUp('DisruptorContainment',{duration: 1.0});
+        Effect.Fade('universalTopNav',{ duration: 1.0, from: .3, to: 1 });
+        Effect.Fade('homeVariant10000461_region1',{ duration: 1.0, from: .3, to: 1 });
+        Effect.Fade('footer',{ duration: 1.0, from: .3, to: 1 });
+        Effect.Fade('contentItemContainer10000512',{ duration: 1.0, from: .3, to: 1 });
+        Effect.Fade('Main1968226',{ duration: 1.0, from: .3, to: 1 });	  
+        //$('topSearchSelect').setStyle({visibility:'visible'});
+        clearTimeout(PromoTimer);
+        return false;
+        }
+        
+        this.disruptorTrigger();
+        
+    },
+        
+    disruptorTrigger:function() {
+        
+        this.DisruptorContainer = Builder.node
+		('div',{id:'DisruptorContainment',style:'width:654px;height:633px;position:absolute; top:0px; left:335px; display:none;z-index:200;'});
+        this.PromoDisruptorImage = Builder.node ('img', {src:'/Asset_Archive/GPWeb/content/0002/063/006/assets/080210_violator_us.jpg',useMap:'#disruptor_map'});
+
+        if(navigator.appVersion.indexOf('MSIE 7.0') > 1) {
+          //  $('topSearchSelect').setStyle({visibility:'hidden'});
+            this.DisruptorContainer = Builder.node
+			('div',{id:'DisruptorContainment',style:'width:654px;height:633px;position:absolute; top:0px; left:335px; display:none;z-index:200;'});
+        }
+
+        if(navigator.appVersion.indexOf('MSIE 6.0') > 1) {
+           // $('topSearchSelect').setStyle({visibility:'hidden'});
+            this.DisruptorContainer = Builder.node
+			('div',{id:'DisruptorContainment',style:'width:654px;height:633px;position:absolute; top:-0px; left:335px; display:none;z-index:200;'});
+        }
+        
+        this.DisruptorContainer.appendChild(this.PromoDisruptorImage);
+        $('mainContent').appendChild(this.DisruptorContainer);
+        Effect.SlideDown('DisruptorContainment',{duration: 1.0});
+        
+        
+    }
+    
+};
+
+
+Event.observe(window,'load',function() {
+
+var placeOfOrigin = marketMessagService.requestOriginCountryCode;
+//alert(marketMessagService.geoLocation);
+	if (marketMessagService.geoLocation != ""){
+			
+	var geoLocationString = marketMessagService.geoLocation;
+	//alert(geoLocationArray[0]);	
+	var dmaSliceStart = geoLocationString.indexOf('dma=')+4;
+	//alert(dmaSliceStart);
+	//var dmaSliceStart = geoLocationArray[dmaArrayNumber].indexOf('=');
+	var dmaSliceEnd = dmaSliceStart+3;
+	var geoLocationDMA = geoLocationString.slice(dmaSliceStart,dmaSliceEnd);
+	//alert(geoLocationDMA);
+		
+		if (geoLocationDMA == '501' | geoLocationDMA == '602' | geoLocationDMA == '803' | geoLocationDMA == '506' | geoLocationDMA == '504' | geoLocationDMA == '807' | geoLocationDMA == '511' | geoLocationDMA == '613' | geoLocationDMA == '623' | geoLocationDMA == '528'){
+			var HasDisruptorBeenSeen = gidLib.getCookieVar("mktUniversalSession","disruptorCookie");
+			//alert('checked cookie');
+			if (!HasDisruptorBeenSeen) {
+				//alert('none found');
+	        	var SessionDisruptor = new PromoDisruption();
+	        
+	        	PromoTimer = setTimeout (function() {
+	        		Effect.SlideUp('DisruptorContainment',{duration: 1.0});
+	        		Effect.Fade('universalTopNav',{ duration: 1.0, from: .3, to: 1 });
+	        		Effect.Fade('homeVariant10000461_region1',{ duration: 1.0, from: .3, to: 1 });
+	        		Effect.Fade('footer',{ duration: 1.0, from: .3, to: 1 });
+	        		//$('topSearchSelect').setStyle({visibility:'visible'});
+	        	}, 10000);
+	        
+			}
+		}
+   
+	}
+    
+});
+
+
+// ]]>
+</script>
+
+<map name="disruptor_map">
+	<area shape="rect" alt="Click here to find a store event near you and print your special offer" coords="5,42,647,628" href="/browse/info.do?cid=59181">
+	<area shape="rect" alt="close" coords="621,11,645,33" href="#close" id="CloseButton">
+</map>
+<!-- End HP DISRUPTOR -->
+
+
